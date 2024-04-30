@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Skull
   - Good
+  - Sanity Potion
+  - Health Pickup
+  - Game Manager
   layers:
   - Default
   - TransparentFX

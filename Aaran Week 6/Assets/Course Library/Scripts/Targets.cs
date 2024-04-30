@@ -6,56 +6,55 @@ public class Targets : MonoBehaviour
 {
     [Header ("Target Speed")]
     Rigidbody rb;
-    private float minSpeed = 6;
-    private float maxSpeed = 10;
+    private float minSpeed = 7;
+    private float maxSpeed = 9;
 
     [Header ("Target Rotation")]
     private float maxTorque = 5;
 
     [Header ("Target Spawn Range")]
     private float xRange = 4;
-    private float ySpawnpos = -6;
+    private float ySpawnpos = -0.5f;
 
     [Header("Target Boundries")]
     public float upperBound = 14;
+    public float lowerBound = -5;
 
     private GameManager gm;
-
 
     // Start is called before the first frame update
     void Start()
     {
-     rb = GetComponent<Rigidbody>();   
-     rb.AddForce(RandomForce(), ForceMode.Impulse);
-     rb.AddTorque(0, 0, RandomTorque(), ForceMode.Impulse);
-     transform.position = RandomSpawnPos();
-     gm = GameObject.Find("Game Manager").GetComponent<GameManager>();
+     rb = GetComponent<Rigidbody>(); // gives access to rigid body component.
+     rb.AddForce(RandomForce(), ForceMode.Impulse); // 
+     rb.AddTorque(0, 0, RandomTorque(), ForceMode.Impulse); //
+     transform.position = RandomSpawnPos(); // 
+     gm = GameObject.Find("Game Manager").GetComponent<GameManager>(); // gives access to the Game Manager Game Object.
     }
-    Vector3 RandomForce()
+    Vector3 RandomForce() //
     {
-        return Vector3.up * Random.Range(-minSpeed, maxSpeed);
+        return Vector3.up * Random.Range(minSpeed, maxSpeed); // sets random speed using these variables.
     }
-    float RandomTorque()
+    float RandomTorque() //
     {
-        return Random.Range( -maxTorque, maxTorque);
+        return Random.Range( -maxTorque, maxTorque); // sets random rotation on game objects.
     }
-    Vector3 RandomSpawnPos()
+    Vector3 RandomSpawnPos() // 
     {
-        return new Vector3(Random.Range(-xRange, xRange), ySpawnpos);
+        return new Vector3(Random.Range(-xRange, xRange), ySpawnpos); // spawns objects in a random place using these variables range.
     }
     // Update is called once per frame
     void Update()
     {
 
-    if(transform.position.y > upperBound)
+    if(transform.position.y > upperBound || transform.position.y < lowerBound) // if object goes beyond this variable value.
     {
-     Destroy(gameObject);
+     Destroy(gameObject); // destroys gaem object this script is a a component of.
     }
 
     }
     private void OnMouseDown()
     {
-     Destroy(gameObject);
-     gm.UpdateSanity(1);
+        Destroy(gameObject);
     }
 }

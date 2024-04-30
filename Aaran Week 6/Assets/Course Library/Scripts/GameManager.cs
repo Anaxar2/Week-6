@@ -13,47 +13,73 @@ public class GameManager : MonoBehaviour
     private int Health;
     public TextMeshProUGUI healthText;
 
-    [Header ("Kills")]
+    [Header("Kills")]
     private int Kills;
     public TextMeshProUGUI killsText;
 
-    [Header ("Sanity")]
+    [Header("Sanity")]
     private int Sanity;
     public TextMeshProUGUI sanityText;
+
+    [Header ("Audio")]
+    private AudioSource AudioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-     {
-      StartCoroutine(SpawnTarget());
-            Health = 3;
-            healthText.text = "Health:" + Health;
+        AudioSource = GetComponent<AudioSource>();
+
+        {
+            StartCoroutine(SpawnTarget());
+            
+            Health = 5;
+            SubtractHealth(0);
 
             Kills = 0;
-            killsText.text = "Kills:" + Kills;
+            UpdateKills(0);
 
-            Sanity = 3;
-            UpdateSanity(0);
-     }
+            Sanity = 10;
+            IncreaseSanity(0);
+        }
     }
     IEnumerator SpawnTarget()
     {
         while (true)
         {
-         yield return new WaitForSeconds(spawnRate);
-         int index = Random.Range(0, targets.Count);
-         Instantiate(targets[index]);
+            yield return new WaitForSeconds(spawnRate);
+            int index = Random.Range(0, targets.Count);
+            Instantiate(targets[index]);
         }
     }
-
-   public void UpdateSanity(int sanityToAdd)
+    public void IncreaseHealth(int healthToAdd)
+    {
+        Health += healthToAdd;
+        healthText.text = "Health:" + Health;
+    }
+    public void SubtractHealth(int healthToSubtract)
+    {
+        Health -= healthToSubtract;
+        healthText.text = "Health:" + Health;
+    }
+    public void UpdateKills(int killsToAdd)
+    {
+        Kills += killsToAdd;
+        killsText.text = "Kills:" + Kills;
+    }
+    public void IncreaseSanity(int sanityToAdd)
     {
         Sanity += sanityToAdd;
+        sanityText.text = "Sanity:" + Sanity;
+    }
+    public void subtractSanity(int sanityTooSubtract)
+    {
+        Sanity -= sanityTooSubtract;
         sanityText.text = "Sanity:" + Sanity;
     }
     // Update is called once per frame
     void Update()
     {
-     
+      
     }
+
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,13 +24,23 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI sanityText;
 
     [Header ("Audio")]
-    private AudioSource AudioSource;
+    private AudioSource _as;
+
+    public Slider slider;
+
+    public TextMeshProUGUI gameOverText;
+
+    public bool isGameOver;
+
+    bool isSanityLow;
+
+    public Button restartButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        AudioSource = GetComponent<AudioSource>();
-
+        _as = GetComponent<AudioSource>();
+       
         {
             StartCoroutine(SpawnTarget());
             
@@ -44,7 +56,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator SpawnTarget()
     {
-        while (true)
+        while (!isGameOver)
         {
             yield return new WaitForSeconds(spawnRate);
             int index = Random.Range(0, targets.Count);
@@ -76,10 +88,42 @@ public class GameManager : MonoBehaviour
         Sanity -= sanityTooSubtract;
         sanityText.text = "Sanity:" + Sanity;
     }
+    public void GameOver()
+    {
+        gameOverText.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(true);
+      
+    }
+    private void SanityLevel()
+    {
+     Instantiate(targets[0]);
+     isSanityLow = true;
+     _as.Play();
+    }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     // Update is called once per frame
     void Update()
     {
-      
+     if(Sanity < 5 && isSanityLow == false) // if Sanity is less than 5 and (bool) anity 
+        {
+         SanityLevel();
+        }
+     if (Sanity >= 5)
+        {
+         _as.Stop();
+          isSanityLow = false;
+        }
+        if (Health <= 0 || Sanity <= 0)
+        {
+            isGameOver = true;
+        }
+        if (isGameOver) GameOver();
+
+        _as.volume = slider.value;
     }
 
 }

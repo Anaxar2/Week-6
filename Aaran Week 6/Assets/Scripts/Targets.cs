@@ -6,8 +6,8 @@ public class Targets : MonoBehaviour
 {
     [Header ("Target Speed")]
     Rigidbody rb;
-    private float minSpeed = 7;
-    private float maxSpeed = 9;
+    private float minSpeed = 6;
+    private float maxSpeed = 8;
 
     [Header ("Target Rotation")]
     private float maxTorque = 5;

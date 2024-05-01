@@ -21,13 +21,13 @@ public class SkullsEffects : MonoBehaviour
     {
         if (transform.position.y > targets.upperBound || transform.position.y < targets.lowerBound) // if object goes beyond this variable value.
         {
-         gm.SubtractHealth(1);
-
+         gm.SubtractHealth(1); // subtracts 1 from Sanity Total.
+         
         }
     }
     private void OnMouseDown()
     {
         gm.UpdateKills(1); // Increases Kills by 1 when object is clicked on.
-        Instantiate(explosion, transform.position, explosion.transform.rotation);
+        Instantiate(explosion, transform.position, explosion.transform.rotation); // Plays Particle effect.
     }
 }

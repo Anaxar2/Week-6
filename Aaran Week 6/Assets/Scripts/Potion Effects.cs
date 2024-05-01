@@ -22,7 +22,7 @@ public class PotionEffects : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        gm.IncreaseSanity(1); // Increase Sanity by 2 when object is clicked on.
+        gm.IncreaseSanity(2); // Increase Sanity by 2 when object is clicked on.
         Instantiate(explosion, transform.position, explosion.transform.rotation);
     }
 }

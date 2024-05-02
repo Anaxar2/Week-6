@@ -5,11 +5,13 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> targets;
-    private float spawnRate = 1f;
+    public float spawnRate = 1f;
 
     [Header("Health")]
     private int Health;
@@ -36,13 +38,21 @@ public class GameManager : MonoBehaviour
 
     public Button restartButton;
 
+    public GameObject pauseMenu;
+
     // Start is called before the first frame update
     void Start()
     {
         _as = GetComponent<AudioSource>();
-       
+
+        if (Input.GetKeyDown(KeyCode.P))
+         {
+            pauseMenu.SetActive(true);
+            Time.timeScale = 1;
+        }
+           
+
         {
-            StartCoroutine(SpawnTarget());
             
             Health = 5;
             SubtractHealth(0);
@@ -62,6 +72,10 @@ public class GameManager : MonoBehaviour
             int index = Random.Range(0, targets.Count);
             Instantiate(targets[index]);
         }
+    }
+    public void StartGame()
+    {
+        StartCoroutine(SpawnTarget());
     }
     public void IncreaseHealth(int healthToAdd)
     {

@@ -7,19 +7,12 @@ using UnityEngine.UIElements;
 
 public class UIManager : MonoBehaviour
 {
-    /*[Header ("UI Elements")]
-    public Slider slider;
-
-    [Header("Audio")]
-    private AudioSource AudioSource;*/
-
     private GameManager gm;
-         
+    
     // Start is called before the first frame update
     void Start()
     {
-     //AudioSource.volume = slider.value;
-     gm = GameObject.Find("Game Manger").GetComponent<GameManager>();
+     gm = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -27,5 +20,10 @@ public class UIManager : MonoBehaviour
     {
      
     }
-  
+    public void SetDifficulty(float Difficulty)
+    {
+        gm.StartGame();
+        gm.spawnRate = Difficulty;
+        Debug.Log(gameObject.name + "was clicked");
+    }
 }

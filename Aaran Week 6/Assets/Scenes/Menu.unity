@@ -456,6 +456,7 @@ MonoBehaviour:
   gameOverText: {fileID: 116566622}
   isGameOver: 0
   restartButton: {fileID: 715969204}
+  pauseMenu: {fileID: 0}
 --- !u!4 &47313643
 Transform:
   m_ObjectHideFlags: 0
@@ -2248,14 +2249,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Skulls reduce Sanity by 1 when you see them.
-
-    Skull = 1 Kill
-
-    Steak
-    = 1 Health
-
-    Bottles = 2 Sanity'
+  m_text: "Skulls reduce Sanity by 1 when you see them. \nSkull = 1 Kill + 1 Sanity\nSteak
+    = 1 Health\nBottles = 2 Sanity"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

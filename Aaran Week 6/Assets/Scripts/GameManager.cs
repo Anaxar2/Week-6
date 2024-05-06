@@ -10,6 +10,7 @@ using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 public class GameManager : MonoBehaviour
 {
+    [Header ("Targets")]
     public List<GameObject> targets;
     public float spawnRate = 1f;
 
@@ -24,36 +25,38 @@ public class GameManager : MonoBehaviour
     [Header("Sanity")]
     private int Sanity;
     public TextMeshProUGUI sanityText;
+    bool isSanityLow;
+
+    [Header ("Timer")]
+    private int Timer;
+    public TextMeshProUGUI timerText;
+    public float currentTime;
 
     [Header ("Audio")]
     private AudioSource _as;
-
     public Slider slider;
 
+    [Header ("Game Over State")]
     public TextMeshProUGUI gameOverText;
-
     public bool isGameOver;
-
-    bool isSanityLow;
-
     public Button restartButton;
 
+    [Header ("Pause Menu")]
     public GameObject pauseMenu;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         _as = GetComponent<AudioSource>();
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape))
          {
             pauseMenu.SetActive(true);
             Time.timeScale = 1;
         }
-           
 
         {
-            
             Health = 5;
             SubtractHealth(0);
 
@@ -122,7 +125,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     if(Sanity < 5 && isSanityLow == false) // if Sanity is less than 5 and (bool) anity 
+      if (Sanity < 5 && isSanityLow == false) // if Sanity is less than 5 and (bool) anity 
         {
          SanityLevel();
         }
